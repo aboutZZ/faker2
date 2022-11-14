@@ -507,7 +507,12 @@ function try_apply(title, activityId) {
             "previewTime": ""
         });
         body = await geth5st(body);
-        if(!body) return;
+        if(!body) {
+            // Z 修复网络请求错误导致此脚本终止运行的问题。
+            console.log('发生错误，跳过此次申请请求...');
+            resolve();
+            return;
+        }
         let opt =
             {
                 "url": `${URL}?${body}}`,
